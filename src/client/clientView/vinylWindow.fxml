@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #5958ff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.clientView.VinylWindowController">
+   <children>
+      <Pane layoutX="10.0" layoutY="7.0" prefHeight="37.0" prefWidth="880.0" style="-fx-background-color: CCCCCD;">
+         <children>
+            <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="179.0" layoutY="5.0" prefHeight="28.0" prefWidth="141.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="8.0" text="Vinyl Lending System">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="770.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/user1.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="800.0" layoutY="7.0" mnemonicParsing="false" onAction="#onLogoutButton" text="Logout" />
+         </children>
+      </Pane>
+      <Pane layoutX="10.0" layoutY="50.0" prefHeight="250.0" prefWidth="430.0">
+         <children>
+            <Label layoutX="10.0" layoutY="-15.0" text="All Vinyls" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <ListView fx:id="allVinylsListView" layoutX="0.0" layoutY="10.0" prefHeight="230.0" prefWidth="430.0" />
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="90.0" layoutY="-15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/vinyl_collection.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="460.0" layoutY="50.0" prefHeight="250.0" prefWidth="430.0">
+         <children>
+            <Label layoutX="10.0" layoutY="-15.0" text="My Vinyls" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <ListView fx:id="myVinylsListView" layoutX="0.0" layoutY="10.0" prefHeight="230.0" prefWidth="430.0" />
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="90.0" layoutY="-15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/vinyl_collection.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="10.0" layoutY="310.0" prefHeight="250.0" prefWidth="430.0">
+         <children>
+            <Label layoutX="10.0" layoutY="-15.0" text="Borrowed Vinyls" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <ListView fx:id="borrowedVinylsListView" layoutX="0.0" layoutY="10.0" prefHeight="230.0" prefWidth="430.0" />
+            <Button layoutX="350.0" layoutY="210.0" mnemonicParsing="false" onAction="#onReturnButton" text="Return Vinyl">
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/return.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+      <Pane layoutX="460.0" layoutY="310.0" prefHeight="250.0" prefWidth="430.0">
+         <children>
+            <Label layoutX="10.0" layoutY="-15.0" text="Available Vinyls" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <ListView fx:id="availableVinylsListView" layoutX="0.0" layoutY="10.0" prefHeight="230.0" prefWidth="430.0" />
+            <Button layoutX="350.0" layoutY="210.0" mnemonicParsing="false" onAction="#onBorrowButton" text="Borrow Vinyl">
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/borrow.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+      <Pane layoutX="10.0" layoutY="570.0" prefHeight="50.0" prefWidth="880.0">
+         <children>
+            <TextField fx:id="titleField" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="300.0" promptText="Title" />
+            <TextField fx:id="artistField" layoutX="320.0" layoutY="10.0" prefHeight="30.0" prefWidth="300.0" promptText="Artist" />
+            <Button layoutX="630.0" layoutY="10.0" mnemonicParsing="false" onAction="#onAddVinylButton" prefHeight="30.0" prefWidth="100.0" text="Add Vinyl">
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/add_vinyl.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane> 
