@@ -1,8 +1,5 @@
 package com.vinyl.client.network;
 
-import com.vinyl.shared.Request;
-import com.vinyl.shared.User;
-import com.vinyl.shared.Vinyl;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
@@ -10,6 +7,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+
+import com.vinyl.shared.Request;
+import com.vinyl.shared.User;
+import com.vinyl.shared.Vinyl;
 
 public class SocketClient implements Client {
     private PropertyChangeSupport support;
@@ -21,7 +22,7 @@ public class SocketClient implements Client {
     @Override
     public void startClient() {
         try {
-            Socket socket = new Socket("localhost", 2910);
+            Socket socket = new Socket(ClientConfig.getServerHost(), ClientConfig.getServerPort());
             ObjectOutputStream outToServer = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream inFromServer = new ObjectInputStream(socket.getInputStream());
             new Thread(() -> listenToServer(outToServer, inFromServer)).start();
@@ -147,7 +148,7 @@ public class SocketClient implements Client {
     }
 
     private Request request(String type, Object arg) throws IOException, ClassNotFoundException {
-        Socket socket = new Socket("localhost", 2910);
+        Socket socket = new Socket(ClientConfig.getServerHost(), ClientConfig.getServerPort());
         ObjectOutputStream outToServer = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream inFromServer = new ObjectInputStream(socket.getInputStream());
         outToServer.writeObject(new Request(type, arg));
