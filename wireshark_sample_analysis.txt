@@ -1,0 +1,95 @@
+VINYL APPLICATION WIRESHARK CAPTURE ANALYSIS
+=========================================
+
+Sample Capture Time: 2024-04-06 10:20:00
+Client IP: 192.168.1.100
+Server IP: 192.168.1.200
+Server Port: 2910
+
+1. TCP 3-WAY HANDSHAKE
+----------------------
+Frame 1: SYN Packet
+Time: 10:20:00.123
+Source: 192.168.1.100:51234
+Destination: 192.168.1.200:2910
+Flags: [SYN]
+TCP Segment Len: 0
+Window Size: 64240
+
+Frame 2: SYN-ACK Packet
+Time: 10:20:00.125
+Source: 192.168.1.200:2910
+Destination: 192.168.1.100:51234
+Flags: [SYN, ACK]
+TCP Segment Len: 0
+Window Size: 65535
+
+Frame 3: ACK Packet
+Time: 10:20:00.127
+Source: 192.168.1.100:51234
+Destination: 192.168.1.200:2910
+Flags: [ACK]
+TCP Segment Len: 0
+Window Size: 64240
+
+2. LOGIN OPERATION
+-----------------
+Frame 4: Login Request (Client -> Server)
+Time: 10:20:01.234
+Source: 192.168.1.100:51234
+Destination: 192.168.1.200:2910
+TCP Segment Len: 152
+Data: [Java Serialized Object]
+  - Type: "login"
+  - Content: User{username='john_doe', password='****'}
+
+Frame 5: Login Response (Server -> Client)
+Time: 10:20:01.456
+Source: 192.168.1.200:2910
+Destination: 192.168.1.100:51234
+TCP Segment Len: 89
+Data: [Java Serialized Object]
+  - Type: "login"
+  - Content: Boolean{true}
+
+3. BORROW OPERATION
+------------------
+Frame 6: Borrow Request (Client -> Server)
+Time: 10:20:03.789
+Source: 192.168.1.100:51234
+Destination: 192.168.1.200:2910
+TCP Segment Len: 178
+Data: [Java Serialized Object]
+  - Type: "borrowVinyl"
+  - Content: String[]{"Dark Side of the Moon", "john_doe"}
+
+Frame 7: Borrow Response (Server -> Client)
+Time: 10:20:03.901
+Source: 192.168.1.200:2910
+Destination: 192.168.1.100:51234
+TCP Segment Len: 92
+Data: [Java Serialized Object]
+  - Type: "borrowVinyl"
+  - Content: Boolean{true}
+
+4. ANALYSIS SUMMARY
+------------------
+Total Packets: 7
+Connection Setup: 3 packets (SYN, SYN-ACK, ACK)
+Login Operation: 2 packets (Request/Response)
+Borrow Operation: 2 packets (Request/Response)
+
+Key Observations:
+1. Successful TCP handshake established
+2. Login operation completed successfully
+3. Borrow operation completed successfully
+4. All packets properly sequenced
+5. No retransmissions or errors observed
+6. Expected client-server communication pattern followed
+
+Protocol Verification:
+✓ TCP handshake properly established
+✓ Java serialization headers present
+✓ Request/Response pattern maintained
+✓ Port 2910 consistently used
+✓ Proper message sequencing observed 
