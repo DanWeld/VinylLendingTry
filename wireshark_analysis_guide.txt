@@ -1,0 +1,90 @@
+WIRESHARK ANALYSIS GUIDE FOR VINYL APPLICATION
+===========================================
+
+1. BASIC FILTERS
+---------------
+# To see all Vinyl application traffic:
+tcp port 2910
+
+# To see just the TCP handshake:
+tcp port 2910 and (tcp.flags.syn == 1 or tcp.flags.ack == 1)
+
+# To see just the data packets:
+tcp port 2910 and tcp.len > 0
+
+2. TCP 3-WAY HANDSHAKE
+---------------------
+Look for these three packets in sequence:
+
+a) SYN Packet (Client -> Server)
+   - Source: Client_IP:Random_Port
+   - Destination: Server_IP:2910
+   - TCP Flags: [SYN] = 1
+   - How to identify: tcp.flags.syn == 1 and tcp.flags.ack == 0
+
+b) SYN-ACK Packet (Server -> Client)
+   - Source: Server_IP:2910
+   - Destination: Client_IP:Random_Port
+   - TCP Flags: [SYN, ACK] = 1
+   - How to identify: tcp.flags.syn == 1 and tcp.flags.ack == 1
+
+c) ACK Packet (Client -> Server)
+   - Source: Client_IP:Random_Port
+   - Destination: Server_IP:2910
+   - TCP Flags: [ACK] = 1
+   - How to identify: tcp.flags.syn == 0 and tcp.flags.ack == 1
+
+3. APPLICATION LAYER MESSAGES
+---------------------------
+A. Login Operation
+   Request (Client -> Server):
+   - Java serialized Request object
+   - type: "login"
+   - arg: User object (username, password)
+   
+   Response (Server -> Client):
+   - Java serialized Request object
+   - type: "login"
+   - arg: Boolean (success/failure)
+
+B. Borrow Operation
+   Request (Client -> Server):
+   - Java serialized Request object
+   - type: "borrowVinyl"
+   - arg: String[] {vinyl_title, borrower_name}
+   
+   Response (Server -> Client):
+   - Java serialized Request object
+   - type: "borrowVinyl"
+   - arg: Boolean (success/failure)
+
+4. HOW TO ANALYZE PACKETS
+------------------------
+1. Start Wireshark before running client/server
+2. Apply filter: tcp port 2910
+3. Perform login and borrow operations
+4. Right-click on a packet -> Follow -> TCP Stream
+5. Look for:
+   - Java serialization headers
+   - Request object type strings
+   - Response data
+
+5. IMPORTANT PACKET FIELDS
+-------------------------
+- Source IP and Port
+- Destination IP and Port
+- TCP Flags
+- Packet Length
+- Payload Data
+
+6. EXAMPLE PACKET SEQUENCE
+-------------------------
+1. TCP Handshake (3 packets)
+2. Client Login Request
+3. Server Login Response
+4. Client Borrow Request
+5. Server Borrow Response
+6. [Additional application data]
+
+Note: All communication uses TCP port 2910. The server listens on 0.0.0.0:2910 
+(all interfaces) and clients connect from random ephemeral ports. 
